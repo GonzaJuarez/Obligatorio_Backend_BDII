@@ -46,49 +46,35 @@ cd Backend_Obligatorio_BD2
 
 ```bash
 cd BaseDatos
-docker-compose up -d
+docker-compose up --build
 ```
 
 Esto levantará un contenedor MySQL con las siguientes configuraciones:
 - Host: localhost
 - Puerto: 3306
 - Usuario: root
-- Contraseña: (vacía)
+- Contraseña: contraseña root
 - Base de datos: XR_Grupo5
 
-### Paso 3: Crear Usuarios Iniciales
+### Paso 3: Ejecutar Scripts de Base de Datos
 
-Una vez que el contenedor esté corriendo, ejecuta los scripts SQL en el siguiente orden:
-
-1. **AUDITORIA.sql** - Crear usuario auditor
-2. **ADMIN.sql** - Crear usuario administrador
-3. **GERENTE.sql** - Crear usuario gerente
-4. **EMPLEADO.sql** - Crear usuario empleado
-
-Puedes ejecutar estos scripts usando el cliente MySQL de tu preferencia o importándolos al contenedor.
-
-### Paso 4: Ejecutar Scripts de Base de Datos
-
-```bash
-# Conectar a MySQL y ejecutar los scripts
-mysql -h localhost -P 3306 -u root < Script_ObligatorioBDII_Grupo5.sql
-mysql -h localhost -P 3306 -u root < insert_initial_data.sql
-```
+Ejecutar los script de base de datos de creacion de base de datos y datos iniciales
 
 ### Paso 5: Configurar Variables de Entorno
 
 Crear un archivo `.env` en la raíz del proyecto:
 
 ```env
-MYSQL_HOST=localhost
-MYSQL_USER=root
-MYSQL_PASSWORD=
-MYSQL_DB=XR_Grupo5
+MYSQL_HOST='localhost'
+MYSQL_USER='root'
+MYSQL_PASSWORD='contraseña root'
+MYSQL_DB='XR_Grupo5'
 ```
 
-### Paso 6: Instalar Dependencias
+### Paso 6: Crear entorno virtual e instalar dependencias
 
 ```bash
+python -m venv nombre_entorno_virtual
 pip install -r requirements.txt
 ```
 
@@ -96,7 +82,7 @@ pip install -r requirements.txt
 
 ```bash
 cd app
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload
 ```
 
 La aplicación estará disponible en: http://localhost:8000
