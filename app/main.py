@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .routers import operadores, votantes, votos, elecciones, circuitos, establecimientos
 from .routers import integrantes_listas, integra, incluye, lista_credenciales, registro_emision, estadisticas
 from .db import get_connection
@@ -7,6 +8,14 @@ app = FastAPI(
     title="API Sistema de Votación Electrónico",
     description="API para gestión de elecciones, votantes, votos y operadores/admins.",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"], 
 )
 
 app.include_router(operadores.router)

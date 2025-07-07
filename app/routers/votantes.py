@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional
-import pymysql
 from ..db import get_connection
 from ..models import VotanteCreate, VotanteResponse
 from ..utils import generate_cc

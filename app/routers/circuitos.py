@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
-import pymysql
 from ..db import get_connection
 from ..models import CircuitoCreate
 
