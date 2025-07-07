@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS XR_Grupo5;
 
 USE XR_Grupo5;
 
-CREATE TABLE Votante (
+CREATE TABLE IF NOT EXISTS Votante (
     CC VARCHAR(7) PRIMARY KEY,
     CI VARCHAR(20) NOT NULL ,
     nombre VARCHAR(100) NOT NULL,
@@ -10,12 +10,12 @@ CREATE TABLE Votante (
     fechaNacimiento DATE NOT NULL
 );
 
-CREATE TABLE Establecimiento (
+CREATE TABLE IF NOT EXISTS Establecimiento (
     ID INT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE circuito (
+CREATE TABLE IF NOT EXISTS circuito (
     ID INT PRIMARY KEY,
     departamento VARCHAR(100) NOT NULL,
     localidad VARCHAR(100) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE circuito (
     FOREIGN KEY (IDEstablecimiento) REFERENCES Establecimiento(ID)
 );
 
-CREATE TABLE miembroMesa (
+CREATE TABLE IF NOT EXISTS miembroMesa (
     CC VARCHAR(7) PRIMARY KEY,
     organismoEstado VARCHAR(100) NOT NULL,
     IDCircuito INT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE miembroMesa (
     FOREIGN KEY (IDCircuito) REFERENCES circuito(ID)
 );
 
-CREATE TABLE agentePolicia (
+CREATE TABLE IF NOT EXISTS agentePolicia (
     CC VARCHAR(7) PRIMARY KEY,
     IDEstablecimiento INT NOT NULL,
     Comisaria VARCHAR(100) NOT NULL,
@@ -44,31 +44,31 @@ CREATE TABLE agentePolicia (
     FOREIGN KEY (IDEstablecimiento) REFERENCES Establecimiento(ID)
 );
 
-CREATE TABLE integranteLista (
+CREATE TABLE IF NOT EXISTS integranteLista (
     CC VARCHAR(7) PRIMARY KEY,
     FOREIGN KEY (CC) REFERENCES Votante(CC)
 );
 
-CREATE TABLE partidoPolitico (
+CREATE TABLE IF NOT EXISTS partidoPolitico (
     ID INT PRIMARY KEY,
     direccionSede VARCHAR(255) NOT NULL,
     autoridades TEXT NOT NULL
 );
 
-CREATE TABLE candidato (
+CREATE TABLE IF NOT EXISTS candidato (
     CC VARCHAR(7) PRIMARY KEY,
     IDPartidoPolitico INT NOT NULL,
     FOREIGN KEY (CC) REFERENCES Votante(CC),
     FOREIGN KEY (IDPartidoPolitico) REFERENCES partidoPolitico(ID)
 );
 
-CREATE TABLE eleccion (
+CREATE TABLE IF NOT EXISTS eleccion (
     ID INT PRIMARY KEY,
     fecha DATE NOT NULL,
     tipo VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE lista (
+CREATE TABLE IF NOT EXISTS lista (
     numero INT,
     IDEleccion INT,
     departamento VARCHAR(100) NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE lista (
     FOREIGN KEY (CCCandidato) REFERENCES candidato(CC)
 );
 
-CREATE TABLE integra (
+CREATE TABLE IF NOT EXISTS integra (
     CC VARCHAR(7),
     numeroLista INT,
     ordenIntegrantes INT NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE integra (
     FOREIGN KEY (numeroLista) REFERENCES lista(numero)
 );
 
-CREATE TABLE voto (
+CREATE TABLE IF NOT EXISTS voto (
     ID INT PRIMARY KEY,
     fechaHora TIMESTAMP NOT NULL,
     IDCircuito INT NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE voto (
     FOREIGN KEY (IDCircuito) REFERENCES circuito(ID)
 );
 
-CREATE TABLE incluye (
+CREATE TABLE IF NOT EXISTS incluye (
     IDVoto INT,
     numeroLista INT,
     PRIMARY KEY (IDVoto, numeroLista),
@@ -107,7 +107,7 @@ CREATE TABLE incluye (
     FOREIGN KEY (numeroLista) REFERENCES lista(numero)
 );
 
-CREATE TABLE listaCredenciales (
+CREATE TABLE IF NOT EXISTS listaCredenciales (
     CC VARCHAR(7),
     IDCircuito INT,
     PRIMARY KEY (CC, IDCircuito),
@@ -115,7 +115,7 @@ CREATE TABLE listaCredenciales (
     FOREIGN KEY (IDCircuito) REFERENCES circuito(ID)
 );
 
-CREATE TABLE registroDeEmision (
+CREATE TABLE IF NOT EXISTS registroDeEmision (
     CC VARCHAR(7),
     IDEleccion INT,
     fechaHora TIMESTAMP NOT NULL,

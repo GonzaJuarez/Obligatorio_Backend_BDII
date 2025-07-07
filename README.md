@@ -75,6 +75,7 @@ MYSQL_DB='XR_Grupo5'
 
 ```bash
 python -m venv nombre_entorno_virtual
+nombre_entorno_virtual/Scripts/activate
 pip install -r requirements.txt
 ```
 
